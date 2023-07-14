@@ -1,12 +1,13 @@
-import { Nunito } from 'next/font/google'
-import { Inter } from 'next/font/google'
-import Navbar from './components/navbar/Navbar'
-import ClientOnly from './components/ClientOnly'
-import RegisterModal from './components/modals/RegisterModal'
-import LoginModal from './components/modals/LoginModal'
-import ToasterProvider from './providers/ToasterProvider'
-import './globals.css'
-import getCurrentUser from './actions/getCurrentUser'
+import { Nunito } from 'next/font/google';
+import { Inter } from 'next/font/google';
+import Navbar from './components/navbar/Navbar';
+import ClientOnly from './components/ClientOnly';
+import RegisterModal from './components/modals/RegisterModal';
+import LoginModal from './components/modals/LoginModal';
+import ToasterProvider from './providers/ToasterProvider';
+import './globals.css';
+import getCurrentUser from './actions/getCurrentUser';
+import RentModal from './components/modals/RentModal';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,11 +31,14 @@ export default async function RootLayout({
       <body className={font.className}>
         <ClientOnly>
           <ToasterProvider/>
+          <RentModal/>
           <LoginModal/>
           <RegisterModal/>
           <Navbar currentUser={currentUser}/>
         </ClientOnly>
-        {children}
+        <div className='pb-20 pt-28'>
+          {children}
+        </div>
       </body>
     </html>
   )

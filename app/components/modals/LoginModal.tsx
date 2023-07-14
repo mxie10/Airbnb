@@ -1,5 +1,4 @@
 'use client'
-import axios from 'axios';
 import { signIn } from 'next-auth/react'
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
@@ -9,7 +8,6 @@ import {
     SubmitHandler,
     useForm
 } from 'react-hook-form';
-
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import Modal from './Modal';
 import Heading from '../Heading';
@@ -20,7 +18,7 @@ import useLoginModal from '@/app/hooks/useLoginModal';
 import { useRouter } from 'next/navigation';
 
 const LoginModal = () => {
-    const router = useRouter()
+    const router = useRouter();
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal()
     const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +58,11 @@ const LoginModal = () => {
         })
     }
 
+    const toggle = useCallback(()=>{
+        loginModal.onClose();
+        registerModal.onOpen();
+    },[loginModal,registerModal])
+
     const bodyContent = (
         <div className='flex flex-col gap-4'>
             <Heading
@@ -84,7 +87,6 @@ const LoginModal = () => {
                 required
             />
             {/* Hello Modal Body */}
-
         </div>
     )
 
@@ -95,13 +97,13 @@ const LoginModal = () => {
                 outline
                 label="Continue with Google"
                 icon={FcGoogle}
-                onClick={() => { }}
+                onClick={() => signIn('google')}
             />
             <Button
                 outline
                 label="Continue with Github"
                 icon={AiFillGithub}
-                onClick={() => { }}
+                onClick={() => signIn('github')}
             />
             <div
                 className='
@@ -116,14 +118,14 @@ const LoginModal = () => {
                         Don't have an account?
                     </div>
                     <div
-                        onClick={registerModal.onClose}
+                        onClick={toggle}
                         className='
                             text-neutral-800
                             cursor-pointer
                             hover:underline
                         '
                     >
-                        Resgiter
+                        Create an account
                     </div>
                 </div>
 
