@@ -90,6 +90,8 @@ const RentModal = () => {
         }
         setIsLoading(true);
 
+        console.log("data:",data);
+
         axios.post('/api/listings',data)
         .then(()=>{
             toast.success('listing Created!');
